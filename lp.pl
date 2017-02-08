@@ -109,8 +109,11 @@ simple-number-list(L, N):-
     append([], N1, N).
 
 %send current min if empty list state reached
-min-num-list([],Min, Min).
-
 min-num-list([X|Y], Min):-
-	min-num-list(X, Y, Min).
+	min-num-list(Y,X,Min).
 
+min-num-list([], Min, Min).
+
+min-num-list([Y|X], Min0, Min):-
+	Min1 is min(X, Min0),
+	min-num-list(Y, Min1, Min).
