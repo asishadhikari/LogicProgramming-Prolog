@@ -55,9 +55,9 @@ sum-up-numbers-general(L,N) :-
 
 
 %solution to question 4
-
-append-necessary():-
-
+compare-inside-lists(X,L2,Compared):-
+	[X|Y] = L2;
+	member(X,[])
 
 %handle cases where either or both lists are empty
 common-unique-elements([],[],[]).
@@ -69,8 +69,10 @@ common-unique-elements(L1,[],[]).
 common-unique-elements(L1,L2,N):-
 	[X|Y] = L1,
 	[X1|Y1] = L2,
-	number(X),					% first element is an integer
-	
+	number(X),
+	compare-inside-lists(X,L2,Compared)
+						% first element is an integer
+
 %X is in the first 
 common-unique-elements(L1,L2,N):-
 		[X|Y] = L1,
