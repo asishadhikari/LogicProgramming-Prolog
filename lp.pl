@@ -1,11 +1,17 @@
+factorial(0,1).
+factorial(N,F) :-
+	N>0,
+	N1 is N-1,
+	factorial(N1,F1),
+	F is N * F1.
 
 %if list exhausted return 0
-sum-up-numbers-simple([],0).
+%['C:/Users/asish/Desktop/LogicProgramming-Prolog/lp.pl'].
 
+sum-up-numbers-simple([],0).
 
 sum-up-numbers-simple(L,N):-
 	[X|Y] = L,
-	[X1|y1] = Y,
-	sum-up-numbers-simple (X1  
-	N is X + Y1.
+	sum-up-numbers-simple(Y,N1),  
+	N is (X + N1).
 	
