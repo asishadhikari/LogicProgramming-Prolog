@@ -92,7 +92,17 @@ common-elements(L1, L2, M):-
 
 %#################################################################################
 %solution to question 3
+min-above-min(L1,L2,N):-
+	simple-number-list(L1, List1),
+	simple-number-list(L2, List2),
+	min-num-list(L2, Min2),
 
+
+
+
+%add value greater than N in L to a list and return
+min-list-creator(L,N):-
+	
 
 %make number lists of any simple list
 simple-number-list([],[]).			%when empty,return empty
@@ -109,11 +119,15 @@ simple-number-list(L, N):-
     append([], N1, N).
 
 %send current min if empty list state reached
-min-num-list([X|Y], Min):-
-	min-num-list(Y,X,Min).
-
 min-num-list([], Min, Min).
 
-min-num-list([Y|X], Min0, Min):-
+%break list
+min-num-list([X|Y], Min):-
+	min-num-list(Y, X, Min).
+
+%once broken, evaluate this predicate to find the minimum from the list
+min-num-list([X|Y], Min0, Min):-
 	Min1 is min(X, Min0),
 	min-num-list(Y, Min1, Min).
+
+
