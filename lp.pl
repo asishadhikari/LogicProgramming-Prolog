@@ -102,6 +102,13 @@ min-list-creator(L, N, Compared):-
 	min-list-creator(Y, N, Compared1),
 	append([X], Compared1, Compared).
 
+min-list-creator(L, N, Compared):-
+    [X|Y] = L,
+    X=<N,
+    min-list-creator(Y,N,Compared1),
+	append([],Compared1,Compared).
+    
+
 
 
 
