@@ -61,20 +61,6 @@ common-unique-elements([],[],[]).
 common-unique-elements([],L2,[]).
 common-unique-elements(L1,[],[]).	
 
-%l1[0] is integer
-common-unique-elements(L1,L2,N):-
-	[X|Y] = L1,
-	[X1|Y1] = L2,
-	number(X),					% first element is an integer
-						
-%%	
-%X is in the first 
-common-unique-elements(L1,L2,N):-
-		[X|Y] = L1,
-		[X1|Y1] = L2,			%break L2 into head and tail
-		\+(is_list([X])),		%proceed only if element is not list
-		member(X,[X2|_]) ;		% if first element of L1 is same as first of L2 
-		member(X,[]);
 
 
 
