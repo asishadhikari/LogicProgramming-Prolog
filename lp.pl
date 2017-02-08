@@ -92,24 +92,13 @@ common-elements(L1, L2, M):-
 
 %#################################################################################
 %solution to question 3
-min-above-min(L1,L2,N):-
-	simple-number-list(L1, List1),
-	simple-number-list(L2, List2),
-	min-num-list(L2, Min2),
-
-max(X,N, Compared):-
-	X>Y,
-	append([X],Compared, Compared)
-
-
-%add value greater than N in L to a list and return
-min-list-creator(L,N):-
-	[X|Y] = L,
-	max(X, N, Compared),
-
-
+min-list-creator([X|Y], N, Compared):-
+	X>N,					%if integer greater than N
+	min-list-creator(Y, N, Compared1),
+	append([X], [Compared1, Compared]).
+	
 %make number lists of any simple list
-simple-number-list([],[]).			%when empty,return empty
+simple-number-list([],[]).	%when empty,return empty
 simple-number-list(L, N):-
 	[X|Y] = L,
 	number(X),				%if the head is integer
