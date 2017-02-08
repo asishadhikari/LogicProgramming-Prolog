@@ -92,10 +92,18 @@ common-elements(L1, L2, M):-
 
 %#################################################################################
 %solution to question 3
-min-list-creator([X|Y], N, Compared):-
-	X>N,					%if integer greater than N
+min-list-creator(L,N, C):-
+    number(N),
+    length(L, 0),
+    append([],L,C).
+
+min-list-creator(L, N, Compared):-
+	[X|Y] = L,
+    X>N,					%if integer greater than N
 	min-list-creator(Y, N, Compared1),
-	append([X], [Compared1, Compared]).
+	append([X], Compared1, Compared).
+
+
 	
 %make number lists of any simple list
 simple-number-list([],[]).	%when empty,return empty
