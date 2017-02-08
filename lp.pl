@@ -19,6 +19,8 @@ sum-up-numbers-simple(L, N):-
 	sum-up-numbers-simple(Y,N1),
 	N is 0 + N1.
 
+
+
 %##################################################################################
 
 %question 2
@@ -64,19 +66,23 @@ sum-up-numbers-general(L,N) :-
 common-unique-elements(L1,L2,N):-
 	simple-list(L1, List_one),
 	simple-list(L2, List_two),
-	common-elements(List_one, List_two, Common_list), 											%append([],'s'), member([],'s')
+	common-elements(List_one, List_two), 		%Common_list									%append([],'s'), member([],'s')
 	N is Common_list.
 
 simple-list([],[]).				%return empty list if empty received
 simple-list(L, Simplified):-
 	[X|Y] = L,
-	\+(is_list(X)),
-	append([],X,Simplified).
+	not((is_list(X))),
+	simple-list(Y, Super-Simplified),
+	append([], Super-Simplified),
+
 
 simple-list(L,Simplified):-
 	[X|Y] = L,
 	(is_list(X)),
-	simple-list (X,Super-Simplified).
+	simple-list(X,Super-Simplified1),
+	simple-list(Y,Super-Simplified2),
+	append([],Super-Simplified1,Super-Simplified2).
 
 
 
