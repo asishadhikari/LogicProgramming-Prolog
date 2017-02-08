@@ -92,10 +92,9 @@ common-elements(L1, L2, M):-
 
 %#################################################################################
 %solution to question 3
-min-list-creator(L,N, C):-
-    number(N),
-    length(L, 0),
-    append([],L,C).
+min-above-min(L1,L2,N):-	
+
+min-list-creator([],_,[]).
 
 min-list-creator(L, N, Compared):-
 	[X|Y] = L,
@@ -104,7 +103,9 @@ min-list-creator(L, N, Compared):-
 	append([X], Compared1, Compared).
 
 
-	
+
+
+
 %make number lists of any simple list
 simple-number-list([],[]).	%when empty,return empty
 simple-number-list(L, N):-
