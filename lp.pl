@@ -94,17 +94,18 @@ common-elements(L1, L2, M):-
 %solution to question 3
 
 
-%make number lists of any list
-
-number-list([],[]).			%when empty,return empty
-number-list(L, N):-
+%make number lists of any simple list
+simple-number-list([],[]).			%when empty,return empty
+simple-number-list(L, N):-
 	[X|Y] = L,
 	number(X),				%if the head is integer
-	number-list(Y, N1),
+	simple-number-list(Y, N1),
     append([X], N1, N).
 
-number-list(L, N):-
+simple-number-list(L, N):-
 	[X|Y] = L,
-	\+number(X),				%if the head is integer
-	number-list(Y, N1),
+	\+number(X),				%if the head is non integer
+	simple-number-list(Y, N1),
     append([], N1, N).
+
+min-num-list
