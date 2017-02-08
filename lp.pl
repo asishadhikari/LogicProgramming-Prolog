@@ -56,16 +56,27 @@ sum-up-numbers-general(L,N) :-
 
 %solution to question 4
 
+append-necessary():-
+
+
 %handle cases where either or both lists are empty
 common-unique-elements([],[],[]).
 common-unique-elements([],L2,[]).
 common-unique-elements(L1,[],[]).	
 
-%X is in the fist 
+
+%l1[0] is integer
+common-unique-elements(L1,L2,N):-
+	[X|Y] = L1,
+	[X1|Y1] = L2,
+	number(X),					% first element is an integer
+	
+%X is in the first 
 common-unique-elements(L1,L2,N):-
 		[X|Y] = L1,
 		[X1|Y1] = L2,			%break L2 into head and tail
-		member(X,[X|_]);		% if 
+		\+(is_list([X])),		%proceed only if element is not list
+		member(X,[X2|_]) ;		% if first element of L1 is same as first of L2 
 		member(X,[]);
 
 
