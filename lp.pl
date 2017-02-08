@@ -55,3 +55,14 @@ sum-up-numbers-general(L,N) :-
 
 %solution to question 4
 
+%handle cases where either or both lists are empty
+common-unique-elements([],[],[]).
+common-unique-elements([],L2,[]).
+common-unique-elements(L1,[],[]).	
+
+
+
+
+
+
+
