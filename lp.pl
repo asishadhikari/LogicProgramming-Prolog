@@ -128,23 +128,11 @@ min-num-list([X|Y], Min0, Min):-
 %solution involves : breaking up list into simple lists, then comparin if each element in simple-list of L1 is a member of L2. Append matches into a list
 
 common-unique-elements(L1,L2,N):-
-	flatten(L1, Flat1),					%remove all nests from L1 and create simple list
-	flatten(L2, Flat2),					%remove
-	common-elements(Flat1, Flat2),
+	flatten(L1, Flat1),										%remove all nests from L1 and create simple list
+	flatten(L2, Flat2),										%remove all nests from L2 and create simple list
+	common-elements(Flat1, Flat2, common-list),				%takes two simple lists and returns list with common elements
 
-%check if element is member of L2, then append
-min-list-creator(L, N, Compared):-
-	[X|Y] = L,
-    X>N,					%if integer greater than N
-	min-list-creator(Y, N, Compared1),
-	append([X], Compared1, Compared).
 
-%append to empty
-min-list-creator(L, N, Compared):-
-    [X|Y] = L,
-    X=<N,
-    min-list-creator(Y,N,Compared1),
-	append([],Compared1,Compared).
     
 
 
@@ -163,8 +151,11 @@ simple-list(L,Simplified):-
 	simple-list(Y,Super-Simplified2),
 	append(Super-Simplified1, Super-Simplified2, Simplified).
 
-common-elements(L1, L2, M):-
-	[X|Y] = L1,
+%if any of the lists are empty, send empty list
+common-elements([],_,[]).
+common-elements(_,[],][]).
+
+common-elements(Flat1, Flat2, common-list):-
+	[X|Y] = Flat1,
 	member(X,L2),
-	common-elements(Y, L2, M1),
-	append([M], X).
+	append([X], common-list,
