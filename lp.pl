@@ -1,5 +1,5 @@
 %['C:/Users/asish/Desktop/LogicProgramming-Prolog/lp.pl'].
-
+%#####################################################################################
 %question 1 - sum the integers in simple list containing only numbers or characters
 
 %sum for empty list is 0
@@ -19,16 +19,17 @@ sum-up-numbers-simple(L, N):-
 	sum-up-numbers-simple(Y,N1),
 	N is 0 + N1.
 
+%##################################################################################
 
 %question 2
 %possible cases : integer, string, list, 
 
 %handle if 0
-sum-up-numbers-general([],0).
+sum-up-numbers-general([],0). 	    %fact
 
 
 %handle if the first element of the list is integer
-sum-up-numbers-general(L,N):-
+sum-up-numbers-general(L,N):-   
 	[X|Y] = L,
 	number(X),
 	\+(is_list(X)),
@@ -37,7 +38,7 @@ sum-up-numbers-general(L,N):-
 
 %handle if the first element in the list is a character and non integer
 
-sum-up-numbers-general(L,N):-  %not working
+sum-up-numbers-general(L,N):-  
 	[X|Y] = L,
 	\+(number(X)),	
 	\+(is_list(X)),	
@@ -54,14 +55,21 @@ sum-up-numbers-general(L,N) :-
 	N is N2 + N1.
 
 
+%################################################################################
 %solution to question 4
 
 %handle cases where either or both lists are empty
-common-unique-elements([],[],[]).
-common-unique-elements([],L2,[]).
-common-unique-elements(L1,[],[]).	
+%solution involves : breaking up list into simple lists, then comparin if each element in simple-list of L1 is a member of L2. Append matches into a list
 
+common-unique-elements(L1,L2,N):-
+	simple-list(L1, List_one),
+	simple-list(L2, List_two),
+	common-elements(List_one, List_two, Common_list), 											%append([],'s'), member([],'s')
+	N is Common_list.
 
+simple-list([],[]).				%return empty list if empty received
+simple-list(L, Simplified):-
+			
 
 
 
