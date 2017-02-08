@@ -57,37 +57,6 @@ sum-up-numbers-general(L,N) :-
 	N is N2 + N1.
 
 
-%################################################################################
-%solution to question 4
-
-%handle cases where either or both lists are empty
-%solution involves : breaking up list into simple lists, then comparin if each element in simple-list of L1 is a member of L2. Append matches into a list
-
-common-unique-elements(L1,L2,N):-
-	simple-list(L1, List_one),
-	simple-list(L2, List_two),
-	common-elements(List_one, List_two, Common_list), 											%append([],'s'), member([],'s')
-	N is Common_list.
-
-simple-list([],[]).				%return empty list if empty received
-simple-list(L, Simplified):-
-	[X|Y] = L,
-	not((is_list(X))),
-	simple-list(Y,Super-Simplified),
-	append([X],Super-Simplified, Simplified).
-
-simple-list(L,Simplified):-
-	[X|Y] = L,
-	(is_list(X)),
-	simple-list(X,Super-Simplified1),
-	simple-list(Y,Super-Simplified2),
-	append(Super-Simplified1, Super-Simplified2, Simplified).
-
-common-elements(L1, L2, M):-
-	[X|Y] = L1,
-	member(X,L2),
-	common-elements(Y, L2, M1),
-	append([M],  X).
 
 
 %#################################################################################
@@ -100,6 +69,8 @@ min-above-min(L1,L2,N):-
 	min-num-list(MinList, SecondMinimum),
 	N is SecondMinimum.
 
+
+%##Helper functions
 %return empty if list is empty
 min-list-creator([],_,[]).
 
@@ -149,3 +120,51 @@ min-num-list([X|Y], Min0, Min):-
 	min-num-list(Y, Min1, Min).
 
 
+%#########################################################################
+%################################################################################
+%solution to question 4
+
+%handle cases where either or both lists are empty
+%solution involves : breaking up list into simple lists, then comparin if each element in simple-list of L1 is a member of L2. Append matches into a list
+
+common-unique-elements(L1,L2,N):-
+	flatten(L1, Flat1),					%remove all nests from L1 and create simple list
+	flatten(L2, Flat2),					%remove
+	common-elements(Flat1, Flat2),
+
+%check if element is member of L2, then append
+min-list-creator(L, N, Compared):-
+	[X|Y] = L,
+    X>N,					%if integer greater than N
+	min-list-creator(Y, N, Compared1),
+	append([X], Compared1, Compared).
+
+%append to empty
+min-list-creator(L, N, Compared):-
+    [X|Y] = L,
+    X=<N,
+    min-list-creator(Y,N,Compared1),
+	append([],Compared1,Compared).
+    
+
+
+
+simple-list([],[]).				%return empty list if empty received
+simple-list(L, Simplified):-
+	[X|Y] = L,
+	\+((is_list(X))),
+	simple-list(Y,Super-Simplified),
+	append([X],Super-Simplified, Simplified).
+
+simple-list(L,Simplified):-
+	[X|Y] = L,
+	(is_list(X)),
+	simple-list(X,Super-Simplified1),
+	simple-list(Y,Super-Simplified2),
+	append(Super-Simplified1, Super-Simplified2, Simplified).
+
+common-elements(L1, L2, M):-
+	[X|Y] = L1,
+	member(X,L2),
+	common-elements(Y, L2, M1),
+	append([M], X).
