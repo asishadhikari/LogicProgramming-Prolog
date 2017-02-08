@@ -70,10 +70,14 @@ common-unique-elements(L1,L2,N):-
 simple-list([],[]).				%return empty list if empty received
 simple-list(L, Simplified):-
 	[X|Y] = L,
-	simple-list([X], head),
-	simple-list([Y], tail),
-	append (head, tail, Simplified).
-			
+	\+(is_list(X)),
+	append([],X,Simplified).
+
+simple-list(L,Simplified):-
+	[X|Y] = L,
+	(is_list(X)),
+	simple-list (X,Super-Simplified).
+
 
 
 
