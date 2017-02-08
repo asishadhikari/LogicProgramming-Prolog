@@ -23,14 +23,35 @@ sum-up-numbers-simple(L, N):-
 %question 2
 %possible cases : integer, string, list, 
 
+%handle if 0
+sum-up-numbers-general([],0).
+
+
 %handle if the first element of the list is integer
 sum-up-numbers-general(L,N):-
 	[X|Y] = L,
 	number(X),
+	\+(is_list(X)),
 	sum-up-numbers-general(Y,N1),
 	N is X + N1.
 
-sum-up-numbers-general()
+%handle if the first element in the list is a character and non integer
+
+sum-up-numbers-general(L,N):-  %not working
+	[X|Y] = L,
+	\+(number(X)),	
+	\+(is_list(X)),	
+	sum-up-numbers-general(Y, N1),
+	N is 0 + N1.
+
+%handle if the first element in list is a list
+sum-up-numbers-general(L,N) :-
+	[X|Y] = L,
+	is_list(X),
+	sum-up-numbers-general(X, N2),
+	sum-up-numbers-general(Y,N1),
+	N is N2 + N1.
 
 
+%solution to question 4
 
