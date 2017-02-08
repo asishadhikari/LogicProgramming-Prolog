@@ -47,7 +47,8 @@ sum-up-numbers-general(L,N):-  %not working
 %handle if the first element in list is a list
 sum-up-numbers-general(L,N) :-
 	[X|Y] = L,
-	is_list(X),
+	\+(number(X)),				%if can't be proven number'
+ 	is_list(X),					%if is list
 	sum-up-numbers-general(X, N2),
 	sum-up-numbers-general(Y,N1),
 	N is N2 + N1.
@@ -60,7 +61,12 @@ common-unique-elements([],[],[]).
 common-unique-elements([],L2,[]).
 common-unique-elements(L1,[],[]).	
 
-
+%X is in the fist 
+common-unique-elements(L1,L2,N):-
+		[X|Y] = L1,
+		[X1|Y1] = L2,			%break L2 into head and tail
+		member(X,[X|_]);		% if 
+		member(X,[]);
 
 
 
