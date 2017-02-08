@@ -66,25 +66,45 @@ sum-up-numbers-general(L,N) :-
 common-unique-elements(L1,L2,N):-
 	simple-list(L1, List_one),
 	simple-list(L2, List_two),
-	common-elements(List_one, List_two), 		%Common_list									%append([],'s'), member([],'s')
+	common-elements(List_one, List_two, Common_list), 											%append([],'s'), member([],'s')
 	N is Common_list.
 
 simple-list([],[]).				%return empty list if empty received
 simple-list(L, Simplified):-
 	[X|Y] = L,
 	not((is_list(X))),
-	simple-list(Y, Super-Simplified),
-	append([], Super-Simplified),
-
+	simple-list(Y,Super-Simplified),
+	append([X],Super-Simplified, Simplified).
 
 simple-list(L,Simplified):-
 	[X|Y] = L,
 	(is_list(X)),
 	simple-list(X,Super-Simplified1),
 	simple-list(Y,Super-Simplified2),
-	append([],Super-Simplified1,Super-Simplified2).
+	append(Super-Simplified1, Super-Simplified2, Simplified).
+
+common-elements(L1, L2, M):-
+	[X|Y] = L1,
+	member(X,L2),
+	common-elements(Y, L2, M1),
+	append([M],  X).
 
 
+%#################################################################################
+%solution to question 3
 
 
+%make number lists of any list
 
+number-list([],[]).			%when empty,return empty
+number-list(L, N):-
+	[X|Y] = L,
+	number(X),				%if the head is integer
+	number-list(Y, N1),
+    append([X], N1, N).
+
+number-list(L, N):-
+	[X|Y] = L,
+	\+number(X),				%if the head is integer
+	number-list(Y, N1),
+    append([], N1, N).
